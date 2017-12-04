@@ -1,6 +1,6 @@
 # Generic GeoTagging App
 
-This goal of this project is to create a generic geotagging application that can be used as a base for specialized geotagging applications.
+The goal of this project is to create a generic geotagging application that can be used as a base for specialized geotagging applications.
 
 * Front-end web (HTML, CSS, JavaScript)
 * [OpenStreetMap](https://www.openstreetmap.org/)
