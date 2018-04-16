@@ -11,3 +11,15 @@ The goal of this project is to create a generic geotagging application that can 
   * [IPFS](https://ipfs.io/)
 
 The learning by doing [hobobar project](https://github.com/Learn-by-doing/hobobar) from earlier this year can be used as a starting point.
+
+## Android Magic
+
+To create an Android device to later run in the emulator:
+```bash
+~/Android/Sdk/tools/bin/avdmanager create avd -n test -k "system-images;android-27;google_apis;x86"
+```
+
+Run the device in the emulator:
+```bash
+~/Android/Sdk/tools/emulator -avd test
+```
