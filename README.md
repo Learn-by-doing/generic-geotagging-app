@@ -23,3 +23,19 @@ Run the device in the emulator:
 ```bash
 ~/Android/Sdk/tools/emulator -avd test
 ```
+
+## Mac + iOS + Expo
+
+Install node.js and npm. Recommended: use the homebrew package manager:
+http://blog.teamtreehouse.com/install-node-js-npm-mac
+
+Install Python (one of the dependencies when you are running `npm install` may complain if you aren't running a version >= 2.5 and < 3.0; you may need to temporarily run an older version of Python for this to work).
+
+On your iOS device, install the Expo app (it will enable you to preview your app on the device as you work):
+https://expo.io/
+
+Fork this repository. Clone your fork onto your computer.
+
+`cd` into the project folder and run `npm install` to fetch the project's node.js dependencies.
+
+Run `npm start` to start the project. Follow the instructions on the command line to email the application link to yourself.
