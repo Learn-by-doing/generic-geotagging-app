@@ -11,7 +11,8 @@ export default class App extends React.Component {
                  rotateEnabled={false}
                  style={{flex: 1}}
                  showsUserLocation >
-            <MapView.UrlTile urlTemplate="http://a.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png" />
+            <MapView.UrlTile urlTemplate="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            {/* More tile servers here: https://wiki.openstreetmap.org/wiki/Tile_servers */}
         </MapView>
     );
   }
