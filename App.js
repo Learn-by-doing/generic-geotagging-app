@@ -5,7 +5,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Welcome to generic-geotagging-app. Enjoy your stay. Some text was added here!</Text>
+        <Text>Welcome to generic-geotagging-app. Enjoy your stay.</Text>
       </View>
     );
   }
