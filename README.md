@@ -29,8 +29,9 @@ Run the device in the emulator:
 Install node.js and npm. Recommended: use the homebrew package manager:
 http://blog.teamtreehouse.com/install-node-js-npm-mac
 
-On your iOS device, install the Expo app, which will enable you to preview your app on the device as you work:
-https://expo.io/
+On your iOS device, install the Expo app, which will enable you to preview your app on the device as you work. Also, install Expo XDE on your computer.
+- https://expo.io/
+- https://docs.expo.io/versions/latest/
 
 Fork this repository. Clone your fork onto your computer.
 
