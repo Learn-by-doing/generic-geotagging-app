@@ -1,12 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import MapView, { Marker } from 'react-native-maps';
+
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Welcome to generic-geotagging-app. Enjoy your stay.</Text>
-      </View>
+        <MapView region={{latitude: 50.0755, longitude: 14.4378,latitudeDelta: 0.0922,longitudeDelta: 0.0421,}}
+                 provider={null}
+                 rotateEnabled={false}
+                 style={{flex: 1}}
+                 showsUserLocation >
+            <MapView.UrlTile urlTemplate="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            {/* More tile servers here: https://wiki.openstreetmap.org/wiki/Tile_servers */}
+        </MapView>
     );
   }
 }
