@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Map, TileLayer } from 'react-leaflet';
 import './App.css';
+import Modal from './modal';
 
 class App extends Component {
   state = {
