@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Geotagging App",
+  "name": "generic-geotagging-app",
   "icons": [
     {
       "src": "favicon.ico",
