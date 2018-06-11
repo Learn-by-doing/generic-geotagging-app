@@ -1,50 +1,36 @@
-import React, { Component } from 'react'
-import { Map, TileLayer } from 'react-leaflet'
-import './App.css'
+import React, { Component } from 'react';
+import { Map, TileLayer } from 'react-leaflet';
+import './App.css';
 
-function geolocationErrorHandler(err) {
-  const { code } = err
-  switch (code) {
-    case 1:
-      console.log('Permission denied -- please allow geolocation')
-      break
-    case 2:
-      console.log('Position unavailable -- try again later')
-      break
-    case 3:
-      console.log('Position querying timed out -- try again later')
-      break
-    default:
-      console.log('Unknown error happened while querying position')
-      break
-  }
-}
+
 
 class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-      lat: 50.1034007,
-      lng: 14.4483626,
-      zoom: 15
-    }
+  state = {
+    lat: 50.1034007,
+    lng: 14.4483626,
+    zoom: 15,
+    dialogShown: false,
   }
 
-  componentWillMount() {
-    if (navigator && navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        res => {
-          this.updateCoords(res.coords.latitude, res.coords.longitude)
-        },
-        err => {
-          geolocationErrorHandler(err)
-        }
-      )
-    }
+  constructor(props) {
+    super(props);
+    this.state = {dialogShown: true};
+
+    // This binding is necessary to make `this` work in the callback
+    this.toggleDialogAdd = this.toggleDialogAdd.bind(this);
   }
 
-  updateCoords(lat, lng) {
-    this.setState({ lat, lng })
+  toggleDialogAdd() {
+    this.setState({
+      dialogShown: this.state.dialogShown ? false : true
+    });
+    console.log(this.state.dialogShown);
+  }
+
+  renderDialog() {
+    if (this.state.dialogShown===true) {
+      return <DialogAdd/>
+    }
   }
 
   render() {
@@ -52,11 +38,30 @@ class App extends Component {
     return (
       <div className="App">
         <Map center={position} zoom={this.state.zoom}>
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
         </Map>
+        <div className="Add">
+          <button onClick={this.toggleDialogAdd}>Add</button>
+        </div>
+        {this.renderDialog()}
+
+
       </div>
-    )
+    );
   }
 }
 
-export default App
+
+class DialogAdd extends Component {
+  render() {
+    return (
+      <div className="DialogAdd">
+        <h2>Add place</h2>
+      </div>
+    );
+  }
+}
+
+export default App;
