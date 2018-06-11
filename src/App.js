@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Map, TileLayer } from 'react-leaflet'
+import { Map, Marker, TileLayer } from 'react-leaflet'
 import './App.css'
 
 function geolocationErrorHandler(err) {
@@ -26,7 +26,10 @@ class App extends Component {
     this.state = {
       lat: 50.1034007,
       lng: 14.4483626,
-      zoom: 15
+      zoom: 15,
+      markers: [
+        { position: [50.1034007, 14.4483626] },
+      ],
     }
   }
 
@@ -47,12 +50,24 @@ class App extends Component {
     this.setState({ lat, lng })
   }
 
+  addMarker = (e) => {
+    this.setState({
+      markers: [
+        ...this.state.markers,
+        { position: [e.latlng.lat, e.latlng.lng] },
+      ],
+    })
+  }
+
   render() {
     const position = [this.state.lat, this.state.lng]
     return (
       <div className="App">
-        <Map center={position} zoom={this.state.zoom}>
+        <Map center={position} zoom={this.state.zoom} onClick={this.addMarker}>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          {this.state.markers.map((marker, index) => (
+            <Marker position={marker.position} />
+          ))}
         </Map>
       </div>
     )
