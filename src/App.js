@@ -14,7 +14,7 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {dialogShown: true};
+    this.state = {dialogShown: false};
 
     // This binding is necessary to make `this` work in the callback
     this.toggleDialogAdd = this.toggleDialogAdd.bind(this);
