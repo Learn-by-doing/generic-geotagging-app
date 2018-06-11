@@ -1,5 +1,4 @@
 body, html, #root, .App, .leaflet-container, .leaflet-pane {
-  position: relative;
   width: 100%;
   height: 100%;
 }
