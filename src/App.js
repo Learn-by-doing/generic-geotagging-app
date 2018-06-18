@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Map, TileLayer } from 'react-leaflet'
+import Buffer from './Buffer'
 import './App.css'
 
 function geolocationErrorHandler(err) {
@@ -33,6 +34,43 @@ class App extends Component {
   }
 
   componentWillMount() {
+    // Buffer is needed for working with IPFS:
+    window.Buffer = Buffer
+    // Wait for window load event because we are loading IPFS from a remote.
+    window.addEventListener('load', function() {
+      // https://github.com/ipfs/js-ipfs#api
+      var node = new window.Ipfs({ start: false })
+      node.on('ready', function() {
+        // Use a promise:
+        node.start()
+        .then(function() {
+          console.log('Node started!')
+        })
+        .catch(error => console.error('Node failed to start!', error))
+      });
+      var ipfs = {
+        node: node,
+        addFile: function(content, cb) {
+          node.files.add(new Buffer(content), cb);
+        },
+        getFile: function(hash, cb) {
+          node.files.get(hash, function(error, result) {
+            console.log((new Buffer(result[0].content)).toString())
+          });
+        },
+        connectToSwarm: function(cb) {
+          node.swarm.peers().then(function(peers) {
+            var peer = peers && peers.length > 0 && peers[0] || null;
+            if (!peer) throw new Error('No one to connect to!');
+            node.swarm.connect(peer.addr.toString())
+              .then(function() {
+                cb();
+              }).catch(cb)
+          }).catch(cb);
+        }
+      };
+      window.ipfs = ipfs;
+    })
     if (navigator && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         res => {
