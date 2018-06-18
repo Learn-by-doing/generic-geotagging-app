@@ -7,3 +7,54 @@ body, html, #root, .App, .leaflet-container, .leaflet-pane {
 .App {
   text-align: center;
 }
+
+.Button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  width: 100px;
+  height: 30px;
+  background-color: #27c1cc;
+  text-align: center;
+  text-decoration: none;
+  font: 'bold 18px 'Lucida Console', Monaco, monospace';
+  text-indent: 1px;
+}
+
+.Button:hover {
+  background-color: beige;
+  border: 2px solid black;
+}
+ /* playin with the button */
+
+.Button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.Button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.Button:hover span {
+  padding-right: 25px;
+}
+
+.Button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.Button:active {
+  transform: translateY(4px)
+}
