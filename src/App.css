@@ -4,6 +4,10 @@ body, html, #root, .App, .leaflet-container, .leaflet-pane {
   height: 100%;
 }
 
+.leaflet-marker-icon.leaflet-interactive {
+  position: fixed;
+}
+
 .App {
   text-align: center;
 }
