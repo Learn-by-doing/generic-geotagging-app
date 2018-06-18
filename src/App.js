@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Map, TileLayer } from 'react-leaflet'
+import Buffer from './Buffer'
 import './App.css'
 
 function geolocationErrorHandler(err) {
@@ -33,6 +34,26 @@ class App extends Component {
   }
 
   componentWillMount() {
+    // Buffer is needed for working with IPFS:
+    window.Buffer = Buffer
+    // Wait for window load event because we are loading IPFS from a remote.
+    window.addEventListener('load', function() {
+      // https://github.com/ipfs/js-ipfs#api
+      const node = new window.Ipfs({ start: false })
+      node.on('ready', function() {
+        // Use a promise:
+        node.start()
+        .then(function() {
+          console.log('Node started!')
+          // !! JUST A TEST !!
+          // If you see "hello, again" in the console (in the browser) then success!
+          node.files.get('QmbC9SwhwdBXaG1hRjGjbeH6HhxSmEPC5pmWhBQ5EibdkW', function(error, result) {
+            console.log((new Buffer(result[0].content)).toString());
+          })
+        })
+        .catch(error => console.error('Node failed to start!', error))
+      })
+    })
     if (navigator && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         res => {
