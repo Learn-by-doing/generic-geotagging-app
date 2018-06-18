@@ -1,0 +1,21 @@
+.overlay {
+	position: fixed;
+	background-color: rgba(0, 0, 0, 0.7);
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 10000;
+	opacity: 1;
+	display: flex;
+	align-items: center;
+}
+.modal-style {
+	background-color: #fff;
+	border-radius: .3rem;
+	max-width: 15rem;
+	min-height: auto;
+	margin: 0 auto;
+	padding: 3rem;
+	color: black;
+};
