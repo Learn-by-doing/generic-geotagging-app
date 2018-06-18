@@ -47,7 +47,12 @@ class App extends Component {
   }
 
   updateCoords(lat, lng) {
-    this.setState({ lat, lng })
+    this.setState({
+      position: {
+        lat,
+        lng
+      }
+    })
   }
 
   addMarker = (e) => {
@@ -60,10 +65,9 @@ class App extends Component {
   }
 
   render() {
-    const position = [this.state.lat, this.state.lng]
     return (
       <div className="App">
-        <Map center={position} zoom={this.state.zoom} onClick={this.addMarker}>
+        <Map center={this.state.position} zoom={this.state.zoom} onClick={this.addMarker}>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           {this.state.markers.map((marker, index) => (
             <Marker position={marker.position} />
