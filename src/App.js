@@ -89,6 +89,16 @@ class App extends Component {
     });
   }
 
+  updateItemPosition = (index) => (e) => {
+    this.setState({
+      items: [
+        ...this.state.items.slice(0, index),
+        { position: [e.target._latlng.lat, e.target._latlng.lng] },
+        ...this.state.items.slice(index + 1),
+      ],
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -96,7 +106,7 @@ class App extends Component {
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           <CircleMarker center={this.state.position} radius={10} />
           {this.state.items.map((item, index) => (
-            <Marker position={item.position} key={index} />
+            <Marker position={item.position} key={index} draggable={true} onDragEnd={this.updateItemPosition(index)}/>
           ))}
           <div className="Add">
             <button onClick={this.toggleDialogAdd}>Add</button>
