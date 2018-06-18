@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Map, Marker, TileLayer } from 'react-leaflet'
+import { CircleMarker, Map, Marker, TileLayer } from 'react-leaflet'
 import './App.css'
 
 function geolocationErrorHandler(err) {
@@ -20,6 +20,13 @@ function geolocationErrorHandler(err) {
   }
 }
 
+const DialogAdd = ({ onSave }) => (
+  <div className="DialogAdd">
+    <h2>Add place</h2>
+    <button onClick={onSave}>Save</button>
+  </div>
+)
+
 class App extends Component {
   constructor() {
     super()
@@ -28,10 +35,13 @@ class App extends Component {
         lat: 50.1034007,
         lng: 14.4483626
       },
+      center: {
+        lat: 50.1034007,
+        lng: 14.4483626,
+      },
       zoom: 15,
-      markers: [
-        { position: [50.1034007, 14.4483626] },
-      ],
+      items: [],
+      dialogShown: false,
     }
   }
 
@@ -57,23 +67,41 @@ class App extends Component {
     })
   }
 
-  addMarker = (e) => {
+  addItem = () => {
     this.setState({
-      markers: [
-        ...this.state.markers,
-        { position: [e.latlng.lat, e.latlng.lng] },
+      items: [
+        ...this.state.items,
+        { position: this.state.center },
       ],
+      dialogShown: false,
     })
+  }
+
+  toggleDialogAdd = () => {
+    this.setState({
+      dialogShown: !this.state.dialogShown,
+    });
+  }
+
+  updateMapCenter = ({ center }) => {
+    this.setState({
+      center,
+    });
   }
 
   render() {
     return (
       <div className="App">
-        <Map center={this.state.position} zoom={this.state.zoom} onClick={this.addMarker}>
+        <Map center={this.state.position} zoom={this.state.zoom} onViewportChange={this.updateMapCenter}>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          {this.state.markers.map((marker, index) => (
-            <Marker position={marker.position} />
+          <CircleMarker center={this.state.position} radius={10} />
+          {this.state.items.map((item, index) => (
+            <Marker position={item.position} key={index} />
           ))}
+          <div className="Add">
+            <button onClick={this.toggleDialogAdd}>Add</button>
+          </div>
+          { this.state.dialogShown && <DialogAdd onSave={this.addItem} />}
         </Map>
       </div>
     )

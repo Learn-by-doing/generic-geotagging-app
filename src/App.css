@@ -11,3 +11,33 @@ body, html, #root, .App, .leaflet-container, .leaflet-pane {
 .App {
   text-align: center;
 }
+
+.Add {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  border: 2px solid rgba(0, 0, 0, 0.2)
+}
+
+button {
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 30px;
+  line-height: 30px;
+  background: white;
+  border-bottom: 1px solid #ccc;
+}
+
+.DialogAdd {
+  background: white;
+  width: 80%;
+  height: 80%;
+  opacity: .8;
+  top: 10%;
+  left: 10%;
+  position: absolute;
+  z-index: 600;
+}
