@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Map, TileLayer } from 'react-leaflet'
+import Modal from './Modal';
 import './App.css'
+import config from './config';
 
 function geolocationErrorHandler(err) {
   const { code } = err
@@ -28,7 +30,8 @@ class App extends Component {
         lat: 50.1034007,
         lng: 14.4483626
       },
-      zoom: 15
+      zoom: 15,
+      showAddItemModal: false,
     }
   }
 
@@ -54,12 +57,39 @@ class App extends Component {
     })
   }
 
+  onAttributesSaved = event => {
+    event.preventDefault();
+    const category = event.target.elements.category.value;
+    const description = event.target.elements.description.value;
+    // here save category and description
+    this.setState({showAddItemModal: false})
+  }
+
   render() {
     return (
       <div className="App">
         <Map center={this.state.position} zoom={this.state.zoom}>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         </Map>
+
+        <Modal show={this.state.showAddItemModal} title={config.addItemModal.title}>
+          <form className="add-item-form" onSubmit={this.onAttributesSaved}>
+            <label>
+              Category:
+              <select name="category">
+                <option value="1">Category1</option>
+                <option value="2">Category2</option>
+              </select>
+            </label>
+            <label>
+              Description:
+              <input type="text" name="description" />
+            </label>
+            <label>
+              <input type="submit" value="Submit" />
+            </label>
+          </form>
+        </Modal>
       </div>
     )
   }

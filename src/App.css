@@ -3,7 +3,13 @@ body, html, #root, .App, .leaflet-container, .leaflet-pane {
   width: 100%;
   height: 100%;
 }
-
 .App {
   text-align: center;
+}
+.App .add-item-form {
+  display: flex;
+  flex-direction: column;
+}
+.App .add-item-form label {
+  margin: 1rem;
 }
