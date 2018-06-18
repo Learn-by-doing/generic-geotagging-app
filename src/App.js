@@ -24,8 +24,10 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      lat: 50.1034007,
-      lng: 14.4483626,
+      position: {
+-        lat: 50.1034007,
+-        lng: 14.4483626
+-      },
       zoom: 15,
       markers: [
         { position: [50.1034007, 14.4483626] },
