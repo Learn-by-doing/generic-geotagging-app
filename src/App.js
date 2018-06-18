@@ -90,7 +90,10 @@ class App extends Component {
     this.setState({
       items: [
         ...this.state.items.slice(0, index),
-        { position: [e.target._latlng.lat, e.target._latlng.lng] },
+        { 
+          ...this.state.items[index],
+          position: [e.target._latlng.lat, e.target._latlng.lng]
+        },
         ...this.state.items.slice(index + 1)
       ]
     })
