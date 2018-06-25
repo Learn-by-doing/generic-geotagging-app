@@ -23,7 +23,11 @@ function geolocationErrorHandler(err) {
 const DialogAdd = ({ onSave }) => (
   <div className="DialogAdd">
     <h2>Add place</h2>
-    <button onClick={onSave}>Save</button>
+    <button
+    className="Button"
+    onClick={onSave}>
+    <span>SAVE</span>
+    </button>
   </div>
 )
 
@@ -119,7 +123,7 @@ class App extends Component {
           ))}
           <div>
             <button
-            className="Add" 
+            className="Button AddButton" 
             onClick={this.toggleDialogAdd}>
             <span>ADD </span>
             </button>
