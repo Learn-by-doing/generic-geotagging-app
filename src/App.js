@@ -136,8 +136,12 @@ class App extends Component {
               onDragEnd={this.updateItemPosition(index)}
             />
           ))}
-          <div className="Add">
-            <button onClick={this.toggleDialogAdd}>Add</button>
+          <div>
+            <button
+            className="Add" 
+            onClick={this.toggleDialogAdd}>
+            <span>ADD </span>
+            </button>
           </div>
           {this.state.dialogShown && <DialogAdd onSave={this.addItem} />}
         </Map>
