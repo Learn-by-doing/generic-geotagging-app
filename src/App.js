@@ -50,6 +50,12 @@ class App extends Component {
       });
       var ipfs = {
         node: node,
+        testGetFile: function() {
+          ipfs.connectToSwarm(function(error) {
+            if (error) return console.log(error);
+            ipfs.getFile('QmZ6ZiC7REsjDXu6Et9LvRvE6At1Rio8xEYkXNL2sk57y9', console.log);
+          })
+        },
         addFile: function(content, cb) {
           node.files.add(new Buffer(content), cb);
         },
