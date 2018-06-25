@@ -1,6 +1,21 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { CircleMarker, Map, Marker, TileLayer } from 'react-leaflet'
 import './App.css'
+
+// Hack to show markers correctly
+// https://github.com/PaulLeCam/react-leaflet/issues/255#issuecomment-261904061
+/* eslint-disable */
+import L from 'leaflet'
+
+delete L.Icon.Default.prototype._getIconUrl
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+})
+/* eslint-enable */
 
 function geolocationErrorHandler(err) {
   const { code } = err
@@ -26,6 +41,10 @@ const DialogAdd = ({ onSave }) => (
     <button onClick={onSave}>Save</button>
   </div>
 )
+
+DialogAdd.propTypes = {
+  onSave: PropTypes.func.isRequired
+}
 
 class App extends Component {
   constructor() {
@@ -90,9 +109,9 @@ class App extends Component {
     this.setState({
       items: [
         ...this.state.items.slice(0, index),
-        { 
+        {
           ...this.state.items[index],
-          position: [e.target._latlng.lat, e.target._latlng.lng]
+          position: [e.target._latlng.lat, e.target._latlng.lng] // eslint-disable-line
         },
         ...this.state.items.slice(index + 1)
       ]
@@ -112,8 +131,8 @@ class App extends Component {
           {this.state.items.map((item, index) => (
             <Marker
               position={item.position}
-              key={index}
-              draggable={true}
+              key={`marker-${index + 1}`}
+              draggable
               onDragEnd={this.updateItemPosition(index)}
             />
           ))}
