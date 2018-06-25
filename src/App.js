@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { CircleMarker, Map, Marker, TileLayer } from 'react-leaflet'
 import './App.css'
+import DialogAdd from './DialogAdd';
 
 // Hack to show markers correctly
 // https://github.com/PaulLeCam/react-leaflet/issues/255#issuecomment-261904061
@@ -33,21 +33,6 @@ function geolocationErrorHandler(err) {
       console.log('Unknown error happened while querying position')
       break
   }
-}
-
-const DialogAdd = ({ onSave }) => (
-  <div className="DialogAdd">
-    <h2>Add place</h2>
-    <button
-    className="Button"
-    onClick={onSave}>
-    <span>SAVE</span>
-    </button>
-  </div>
-)
-
-DialogAdd.propTypes = {
-  onSave: PropTypes.func.isRequired
 }
 
 class App extends Component {
@@ -90,7 +75,9 @@ class App extends Component {
     })
   }
 
-  addItem = () => {
+  addItem = (event) => {
+    event.preventDefault();
+    console.log('event', event.target.elements);
     this.setState({
       items: [...this.state.items, { position: this.state.center }],
       dialogShown: false
