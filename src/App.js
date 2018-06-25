@@ -54,9 +54,19 @@ class App extends Component {
     })
   }
 
+  handleClick = () => {
+    console.log('Add button was clicked')
+  }
+
   render() {
     return (
       <div className="App">
+      <button
+        className="Button"
+        label="Add"   
+        onClick={this.handleClick}>{this.props.label}
+        <span>ADD </span>
+      </button>
         <Map center={this.state.position} zoom={this.state.zoom}>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         </Map>
