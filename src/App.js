@@ -19,15 +19,25 @@ function geolocationErrorHandler(err) {
       break
   }
 }
+// dan's creation
+const PositionParagraph = ({currentLocation}) => (
+  <div>
+  <h3>Your current Location is:</h3>
+  <p>Lattitude: {currentLocation.lat}</p>
+  <p>Longtitude: {currentLocation.lng}</p>
+  </div>
+)
 
-const DialogAdd = ({ onSave }) => (
+const DialogAdd = ({ onSave, currentLocation }) => (
   <div className="DialogAdd">
     <h2>Add place</h2>
     <button
     className="Button"
     onClick={onSave}>
     <span>SAVE</span>
-    </button>
+    </button> 
+    {/* dan's addition */}
+    <PositionParagraph currentLocation={currentLocation}/>
   </div>
 )
 
@@ -45,7 +55,8 @@ class App extends Component {
       },
       zoom: 15,
       items: [],
-      dialogShown: false
+      dialogShown: false,
+
     }
   }
 
@@ -72,17 +83,22 @@ class App extends Component {
   }
 
   addItem = () => {
+
     this.setState({
       items: [...this.state.items, { position: this.state.center }],
       dialogShown: false
     })
+
   }
 
   toggleDialogAdd = () => {
+    console.log('Your current Lattitude: ' + this.state.position.lat)
+    console.log('Your current Longtitude: ' + this.state.position.lng)
     this.setState({
       dialogShown: !this.state.dialogShown
     })
   }
+
 
   updateMapCenter = ({ center }) => {
     this.setState({
@@ -128,7 +144,8 @@ class App extends Component {
             <span>ADD </span>
             </button>
           </div>
-          {this.state.dialogShown && <DialogAdd onSave={this.addItem} />}
+          {/* dan adding the currentLocation attribute */}
+          {this.state.dialogShown && <DialogAdd onSave={this.addItem} currentLocation={{lat: this.state.position.lat, lng: this.state.position.lng, }}/>}
         </Map>
       </div>
     )
