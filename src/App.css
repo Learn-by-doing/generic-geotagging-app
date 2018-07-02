@@ -12,25 +12,6 @@ body, html, #root, .App, .leaflet-container, .leaflet-pane {
   text-align: center;
 }
 
-.Add {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 1000;
-  border: 2px solid rgba(0, 0, 0, 0.2)
-}
-
-button {
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
-  padding-left: 10px;
-  padding-right: 10px;
-  height: 30px;
-  line-height: 30px;
-  background: white;
-  border-bottom: 1px solid #ccc;
-}
-
 .DialogAdd {
   background: white;
   width: 80%;
@@ -41,3 +22,61 @@ button {
   position: absolute;
   z-index: 600;
 }
+
+.Button {
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  width: 100px;
+  height: 30px;
+  background-color: #27c1cc;
+  text-align: center;
+  text-decoration: none;
+  font: 'bold 18px 'Lucida Console', Monaco, monospace';
+  text-indent: 1px;
+  opacity: .8;
+}
+
+.Button:hover {
+  background-color: beige;
+  border: 2px solid black;
+}
+ /* playin with the button */
+
+.Button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.Button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.Button:hover span {
+  padding-right: 25px;
+}
+
+.Button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.Button:active {
+  transform: translateY(4px)
+}
+
+.AddButton  {
+  position: absolute;
+}
+
+
+
