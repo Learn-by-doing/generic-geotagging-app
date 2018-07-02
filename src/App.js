@@ -27,6 +27,39 @@ const DialogAdd = ({ onSave }) => (
   </div>
 )
 
+const DialogDetail = ({ lat, onSave, name, id}) => (
+  <div className="DialogDetail">
+   
+    <h2>Edit place</h2>
+    <div>
+      Point number:
+    <input type='text' defaultValue={name} name='point_number' />
+    </div>
+    <div>
+      Point name:
+    <input type='text' defaultValue={id} name='point_name' />
+    </div>
+    <div>
+      Location:
+    <br />
+      latitude: {lat.position[0]}
+      <br />
+      longitude: {lat.position[1]}
+
+    </div>
+    <div>
+      Description: <br />
+     <textarea></textarea>
+
+    </div>
+
+    <br />
+    <button onClick={onSave}>Save Details</button>
+    <br />
+   
+  </div>
+)
+
 class App extends Component {
   constructor() {
     super()
@@ -41,7 +74,11 @@ class App extends Component {
       },
       zoom: 15,
       items: [],
-      dialogShown: false
+      dialogShown: false,
+      detailDialog: false,
+      detail: {
+        id: null
+      }
     }
   }
 
@@ -87,16 +124,29 @@ class App extends Component {
   }
 
   updateItemPosition = index => e => {
+    console.log(this.state)
     this.setState({
       items: [
         ...this.state.items.slice(0, index),
-        { 
+        {
           ...this.state.items[index],
           position: [e.target._latlng.lat, e.target._latlng.lng]
         },
         ...this.state.items.slice(index + 1)
       ]
     })
+  }
+
+  showDetails = (index) => {
+
+
+
+    this.setState((prevState) => {
+      return {
+        detailDialog: !prevState.detailDialog,
+        detail: { id: index }
+      }
+    });
   }
 
   render() {
@@ -108,19 +158,22 @@ class App extends Component {
           onViewportChange={this.updateMapCenter}
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          <CircleMarker center={this.state.position} radius={10} />
+          <Marker position={this.state.position} radius={10} />
           {this.state.items.map((item, index) => (
             <Marker
               position={item.position}
               key={index}
               draggable={true}
-              onDragEnd={this.updateItemPosition(index)}
+              onDragEnd={this.updateItemPosition(index)} onClick={() => this.showDetails(index)}
             />
           ))}
+
           <div className="Add">
             <button onClick={this.toggleDialogAdd}>Add</button>
           </div>
+          {this.state.detailDialog && <DialogDetail onSave={this.saveItemDetails} name="location_point_name" id="location_point_id" lat={this.state.items[this.state.detail.id]} />}
           {this.state.dialogShown && <DialogAdd onSave={this.addItem} />}
+
         </Map>
       </div>
     )
