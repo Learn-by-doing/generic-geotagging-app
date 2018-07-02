@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import config from './config';
 import FormElement from './FormElement';
 
@@ -25,6 +27,10 @@ class DialogAdd extends Component {
       </div>
     )
   }
+}
+
+DialogAdd.propTypes = {
+  onSave: PropTypes.func.isRequired
 }
 
 export default DialogAdd;
