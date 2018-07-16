@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 const createOptions = (options) => {
   let elements = [];
@@ -33,5 +34,17 @@ class FormElement extends Component {
     }
   }
 }
+
+FormElement.propTypes = {
+  attribute: PropTypes.shape({
+    type: PropTypes.string,
+    label: PropTypes.string,
+    options: PropTypes.arrayOf(PropTypes.shape({
+      value: PropTypes.string,
+      label: PropTypes.string,
+    }))
+  }),
+}
+
 
 export default FormElement;
