@@ -43,6 +43,7 @@ class App extends Component {
         lat: 50.1034007,
         lng: 14.4483626
       },
+      positionWatchId: null,
       center: {
         lat: 50.1034007,
         lng: 14.4483626
@@ -55,14 +56,28 @@ class App extends Component {
 
   componentWillMount() {
     if (navigator && navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        res => {
-          this.updateCoords(res.coords.latitude, res.coords.longitude)
-        },
-        err => {
-          geolocationErrorHandler(err)
-        }
-      )
+      this.watchPosition()
+    }
+  }
+
+  watchPosition() {
+    var watchId = navigator.geolocation.watchPosition(
+      res => {
+        this.updateCoords(res.coords.latitude, res.coords.longitude)
+      },
+      err => {
+        geolocationErrorHandler(err)
+      }
+    )
+    this.setState({positionWatchId: watchId});
+    console.log("Watching position");
+  }
+
+  stopWatchingPosition() {
+    if (this.state.positionWatchId != null) {
+      navigator.geolocation.clearWatch(this.state.positionWatchId)
+      this.setState({positionWatchId: null})
+      console.log("Position watch stopped");
     }
   }
 
@@ -73,6 +88,7 @@ class App extends Component {
         lng
       }
     })
+    console.log("New position:", this.state.position)
   }
 
   addItem = (event) => {
