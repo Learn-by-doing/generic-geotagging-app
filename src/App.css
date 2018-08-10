@@ -23,6 +23,17 @@ body, html, #root, .App, .leaflet-container, .leaflet-pane {
   z-index: 600;
 }
 
+.DialogDetail {
+  background: white;
+  width: 30%;
+  height: 40%;
+  opacity: .8;
+  top: 10%;
+  left: 10%;
+  position: absolute;
+  z-index: 600;
+}
+
 .Button {
   top: 20px;
   right: 20px;

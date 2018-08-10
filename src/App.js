@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { CircleMarker, Map, Marker, TileLayer } from 'react-leaflet'
 import './App.css'
 import DialogAdd from './DialogAdd';
+import DialogDetail from './DetailDialog'
 
 // Hack to show markers correctly
 // https://github.com/PaulLeCam/react-leaflet/issues/255#issuecomment-261904061
@@ -49,7 +50,11 @@ class App extends Component {
       },
       zoom: 15,
       items: [],
-      dialogShown: false
+      dialogShown: false,
+      detailDialog: false,
+      detail: {
+        id: null
+      }
     }
   }
 
@@ -97,6 +102,7 @@ class App extends Component {
   }
 
   updateItemPosition = index => e => {
+    console.log(this.state)
     this.setState({
       items: [
         ...this.state.items.slice(0, index),
@@ -109,6 +115,26 @@ class App extends Component {
     })
   }
 
+  showDetails = (index) => {
+    this.setState((prevState) => {
+      return {
+        detailDialog: !prevState.detailDialog,
+        detail: { id: index }
+      }
+    });
+  }
+
+  saveItemDetails = () => {
+
+    // TODO: saving
+
+    this.setState((prevState) => {
+      return {
+        detailDialog: !prevState.detailDialog
+      }
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -118,13 +144,14 @@ class App extends Component {
           onViewportChange={this.updateMapCenter}
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          <CircleMarker center={this.state.position} radius={10} />
+          <Marker position={this.state.position} radius={10} />
           {this.state.items.map((item, index) => (
             <Marker
               position={item.position}
               key={`marker-${index + 1}`}
               draggable
               onDragEnd={this.updateItemPosition(index)}
+              onClick={() => this.showDetails(index)}
             />
           ))}
           <div>
@@ -134,7 +161,9 @@ class App extends Component {
             <span>ADD </span>
             </button>
           </div>
+          {this.state.detailDialog && <DialogDetail onSave={this.saveItemDetails} name="location_point_name" id="location_point_id" location={this.state.items[this.state.detail.id]} />}
           {this.state.dialogShown && <DialogAdd onSave={this.addItem} />}
+
         </Map>
       </div>
     )
